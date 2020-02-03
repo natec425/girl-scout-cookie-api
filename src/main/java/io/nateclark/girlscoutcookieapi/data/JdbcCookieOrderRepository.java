@@ -18,16 +18,16 @@ public class JdbcCookieOrderRepository implements CookieOrderRepository {
         this.jdbc = jdbc;
     }
 
-    @Override
     public Iterable<CookieOrder> findAll() {
-        return jdbc.query("select * from cookie_orders", this::mapRowToCookieOrder);
+        return jdbc.query("SELECT * from cookie_orders", this::mapRowToCookieOrder);
     }
 
-    // @Override
-    // public CookieOrder findOne(String id) {
-    // return jdbc.queryForObject("select id, name, type from CookieOrder where
-    // id=?", this::mapRowToCookieOrder, id);
-    // }
+    public CookieOrder findById(Integer id) {
+        return jdbc.queryForObject("SELECT id," + "lastName," + "address," + "phoneOrEmail," + "numberDonated,"
+                + "numberThanksALot," + "numberSmores," + "numberLemonades," + "numberShortbreads," + "numberThinMints,"
+                + "numberPeanutButterPatties," + "numberCaramelDeLites," + "numberPeanutButterSandwich,"
+                + "paid FROM cookie_orders WHERE id=?", this::mapRowToCookieOrder, id);
+    }
 
     private CookieOrder mapRowToCookieOrder(ResultSet rs, int rowNum) throws SQLException {
         return new CookieOrder(rs.getInt("id"), rs.getString("lastName"), rs.getString("address"),
