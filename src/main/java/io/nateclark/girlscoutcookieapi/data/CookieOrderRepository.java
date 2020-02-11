@@ -8,4 +8,6 @@ public interface CookieOrderRepository {
     CookieOrder findById(Integer id);
 
     CookieOrder save(CookieOrder cookieOrder);
+
+    void delete(Integer id);
 }
